@@ -36,12 +36,12 @@ jobs:
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
       - name: Restore
-        run: dotnet restore AspNetOnLambda/AspNetOnLambda.csproj
+        run: dotnet restore AspNetOnLambda.csproj
 
       - name: Deploy to AWS Lambda (serverless)
         run: |
           dotnet lambda deploy-serverless \
-            --project-location . \
+            --project-location AspNetOnLambda \
             --stack-name AspNetOnLambdaStack \
             --region ${{ secrets.AWS_REGION }} \
             --s3-bucket aspnetonlambdastack202610021503
