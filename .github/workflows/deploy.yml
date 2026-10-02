@@ -31,13 +31,15 @@ jobs:
 
       - name: Install Lambda tools
         run: dotnet tool install -g Amazon.Lambda.Tools
+       
+      - name: Install Lambda Templates
+        run : dotnet new --install Amazon.Lambda.Templates
 
       - name: Add Lambda tools to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
       - name: Restore
         run: dotnet restore AspNetOnLambda.csproj
-        working-directory: AspNetOnLambda
 
       - name: Deploy to AWS Lambda (serverless)
         run: |
@@ -46,4 +48,3 @@ jobs:
             --stack-name AspNetOnLambdaStack \
             --region ${{ secrets.AWS_REGION }} \
             --s3-bucket aspnetonlambdastack202610021503
-        working-directory: AspNetOnLambda
