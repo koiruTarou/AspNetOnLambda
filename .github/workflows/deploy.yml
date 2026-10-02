@@ -22,7 +22,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ap-northeast-1
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
