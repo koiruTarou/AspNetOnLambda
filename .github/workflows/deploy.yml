@@ -1,0 +1,41 @@
+name: Deploy ASP.NET Core to Lambda (OIDC)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v5
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install Lambda tools
+        run: dotnet tool install -g Amazon.Lambda.Tools
+
+      - name: Add Lambda tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Restore
+        run: dotnet restore AspNetOnLambda/AspNetOnLambda.csproj
+
+      - name: Deploy to AWS Lambda (serverless)
+        run: |
+          dotnet lambda deploy-serverless \
+            --project-location AspNetOnLambda \
+            --stack-name AspNetOnLambdaStack \
+            --region ${{ secrets.AWS_REGION }}
