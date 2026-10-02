@@ -41,6 +41,9 @@ jobs:
       - name: Restore
         run: dotnet restore AspNetOnLambda.csproj
 
+      - name: list files
+        run: ls -R AspNetOnLambda
+
       - name: Deploy to AWS Lambda (serverless)
         run: |
           dotnet lambda deploy-serverless \
