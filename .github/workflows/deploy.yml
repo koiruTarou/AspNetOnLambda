@@ -41,7 +41,7 @@ jobs:
       - name: Deploy to AWS Lambda (serverless)
         run: |
           dotnet lambda deploy-serverless \
-            --project-location AspNetOnLambda \
+            --project-location . \
             --stack-name AspNetOnLambdaStack \
             --region ${{ secrets.AWS_REGION }} \
             --s3-bucket aspnetonlambdastack202610021503
