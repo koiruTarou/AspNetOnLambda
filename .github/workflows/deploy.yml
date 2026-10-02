@@ -9,7 +9,7 @@ on:
 permissions:
   id-token: write
   contents: read
-  
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,8 +21,8 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v5
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: arn:aws:iam::026885593400:role/GitHubActionsLambdaDeployRole
+          aws-region: ap-northeast-1
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
