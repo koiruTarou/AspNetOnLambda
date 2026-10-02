@@ -37,6 +37,7 @@ jobs:
 
       - name: Restore
         run: dotnet restore AspNetOnLambda.csproj
+        working-directory: AspNetOnLambda
 
       - name: Deploy to AWS Lambda (serverless)
         run: |
@@ -45,3 +46,4 @@ jobs:
             --stack-name AspNetOnLambdaStack \
             --region ${{ secrets.AWS_REGION }} \
             --s3-bucket aspnetonlambdastack202610021503
+        working-directory: AspNetOnLambda
