@@ -1,0 +1,14 @@
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\AspNetOnLambda
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\appsettings.Development.json
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\appsettings.json
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\aws-lambda-tools-defaults.json
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\AspNetOnLambda.deps.json
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\AspNetOnLambda.runtimeconfig.json
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\AspNetOnLambda.pdb
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\Amazon.Lambda.APIGatewayEvents.dll
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\Amazon.Lambda.ApplicationLoadBalancerEvents.dll
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\Amazon.Lambda.AspNetCoreServer.dll
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\Amazon.Lambda.Core.dll
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\Amazon.Lambda.Logging.AspNetCore.dll
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\Amazon.Lambda.Serialization.SystemTextJson.dll
+C:\study\AspNetOnLambda\bin\Release\net10.0\publish\AspNetOnLambda.dll

@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "dgSpecHash": "IQZtA9Xf27o=",
+  "success": true,
+  "projectFilePath": "C:\\study\\AspNetOnLambda\\AspNetOnLambda.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\liuyi\\.nuget\\packages\\amazon.lambda.apigatewayevents\\2.7.3\\amazon.lambda.apigatewayevents.2.7.3.nupkg.sha512",
+    "C:\\Users\\liuyi\\.nuget\\packages\\amazon.lambda.applicationloadbalancerevents\\2.2.0\\amazon.lambda.applicationloadbalancerevents.2.2.0.nupkg.sha512",
+    "C:\\Users\\liuyi\\.nuget\\packages\\amazon.lambda.aspnetcoreserver\\9.2.1\\amazon.lambda.aspnetcoreserver.9.2.1.nupkg.sha512",
+    "C:\\Users\\liuyi\\.nuget\\packages\\amazon.lambda.core\\2.8.0\\amazon.lambda.core.2.8.0.nupkg.sha512",
+    "C:\\Users\\liuyi\\.nuget\\packages\\amazon.lambda.logging.aspnetcore\\4.1.1\\amazon.lambda.logging.aspnetcore.4.1.1.nupkg.sha512",
+    "C:\\Users\\liuyi\\.nuget\\packages\\amazon.lambda.serialization.systemtextjson\\2.4.4\\amazon.lambda.serialization.systemtextjson.2.4.4.nupkg.sha512",
+    "C:\\Users\\liuyi\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\10.0.12\\microsoft.netcore.app.runtime.win-x64.10.0.12.nupkg.sha512",
+    "C:\\Users\\liuyi\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\10.0.12\\microsoft.windowsdesktop.app.runtime.win-x64.10.0.12.nupkg.sha512",
+    "C:\\Users\\liuyi\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\10.0.12\\microsoft.aspnetcore.app.runtime.win-x64.10.0.12.nupkg.sha512",
+    "C:\\Users\\liuyi\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\10.0.12\\microsoft.netcore.app.crossgen2.win-x64.10.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}
