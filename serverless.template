@@ -1,19 +1,15 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Transform": "AWS::Serverless-2016-10-31",
-  "Description": "An AWS Serverless Application that uses the ASP.NET Core framework running in Amazon Lambda.",
-  "Parameters": {},
-  "Conditions": {},
+  "Description": "ASP.NET Core Lambda Application",
   "Resources": {
     "AspNetCoreFunction": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "AspNetOnLambda::AspNetOnLambda.LambdaEntryPoint::FunctionHandlerAsync",
         "Runtime": "dotnet10",
-        "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": null,
         "Policies": [
           "AWSLambda_FullAccess"
         ],
@@ -24,21 +20,6 @@
               "Path": "/{proxy+}",
               "Method": "ANY"
             }
-          },
-          "RootResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/",
-              "Method": "ANY"
-            }
-          },
-          "WeatherTestApi": {
-              "Type": "Api",
-              "Properties": {
-                "Path": "/weather/test",
-                "Method": "GET"
-              }
-            }
           }
         }
       }
@@ -46,9 +27,9 @@
   },
   "Outputs": {
     "ApiURL": {
-      "Description": "API endpoint URL for Prod environment",
+      "Description": "Base API endpoint URL",
       "Value": {
-        "Fn::Sub": "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/weather/230000
+        "Fn::Sub": "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com"
       }
     }
   }
