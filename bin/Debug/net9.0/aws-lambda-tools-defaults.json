@@ -10,9 +10,5 @@
   "configuration": "Release",
   "s3-prefix": "AspNetOnLambda/",
   "template": "serverless.template",
-  "template-parameters": "",
-  "environment-variables": {
-    "WeatherApiKey": ""
-  }
+  "template-parameters": ""
 }
-

@@ -41,13 +41,10 @@ jobs:
       - name: Restore
         run: dotnet restore AspNetOnLambda.csproj
 
-      - name: list files
-        run: ls -R
-
       - name: Deploy to AWS Lambda (serverless)
         run: |
           dotnet lambda deploy-serverless \
             --project-location . \
-            --stack-name AspNetOnLambdaStack \
+            --stack-name ${{ vars.STACK_NAME }} \
             --region ${{ secrets.AWS_REGION }} \
-            --s3-bucket aspnetonlambdastack202610021503
+            --s3-bucket ${{ vars.S3_DEPOY_BUCKET }}
