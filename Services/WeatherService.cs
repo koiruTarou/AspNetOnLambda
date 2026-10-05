@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
+using AspNetOnLambda.Common;
+using AspNetOnLambda.Models;
 
 namespace AspNetOnLambda.Services;
 
@@ -11,48 +12,73 @@ public class WeatherService
     public WeatherService(HttpClient http)
     {
         _http = http;
+
+        // Lambda で TLS1.2 を強制
+        System.Net.ServicePointManager.SecurityProtocol =
+            System.Net.SecurityProtocolType.Tls12;
     }
 
-    public async Task<(string Condition, string Comment)> GetTodayWeatherAsync(string jmaCode)
+    public async Task<WeatherInfo> GetTodayWeatherAsync(string jmaCode)
     {
-        var url = $"https://www.jma.go.jp/bosai/forecast/data/forecast/{jmaCode}.json";
+        var url = $"{AppConstants.JmaForecastBaseUrl}{jmaCode}.json";
 
         var json = await _http.GetStringAsync(url);
-
         using var doc = JsonDocument.Parse(json);
 
-        // 今日の天気（weathers[0]）
-        var condition = doc.RootElement[0]
-            .GetProperty("timeSeries")[0]
-            .GetProperty("areas")[0]
-            .GetProperty("weathers")[0]
-            .GetString();
+        // weathers を持つ timeSeries を探す
+        JsonElement? weatherSeries = null;
 
-        if (string.IsNullOrEmpty(condition))
+        foreach (var ts in doc.RootElement[0].GetProperty("timeSeries").EnumerateArray())
         {
-            throw new Exception("気象庁から天気情報を取得できませんでした。");
+            if (ts.TryGetProperty("areas", out var areas) &&
+                areas[0].TryGetProperty("weathers", out var _))
+            {
+                weatherSeries = ts;
+                break;
+            }
         }
-        
-        // 天気に応じてコメントを生成
-        var comment = GenerateComment(condition);
 
-        return (condition, comment);
+        if (weatherSeries == null)
+        {
+            return CreateErrorInfo(); 
+        }
+
+        var area = weatherSeries.Value.GetProperty("areas")[0];
+        var city = area.GetProperty("area").GetProperty("name").GetString();
+        var condition = area.GetProperty("weathers")[0].GetString();
+
+        if (city == null || condition == null)
+        {
+            return CreateErrorInfo();
+        }else{
+            return new WeatherInfo
+            {
+                City = city,
+                Condition = condition,
+                Comment = GenerateComment(condition)
+            };
+        }
     }
 
-    private string GenerateComment(string condition)
+     private string GenerateComment(string condition)
     {
-        if (condition.Contains("晴"))
-            return "今日は晴れ！お散歩日和だよ。";
+        foreach (var kv in WeatherConstants.WeatherMap)
+        {
+            //天気情報に応じて、コメント返却
+            if (condition.Contains(kv.Key))
+                return kv.Value;
+        }
 
-        if (condition.Contains("曇"))
-            return "今日は曇り。ストールがあると安心だよ。";
+        return WeatherConstants.UnknownMessage;
+    }
 
-        if (condition.Contains("雨"))
-            return "今日は雨。傘を忘れないでね。";
-
-        if (condition.Contains("雪"))
-            return "雪だよ。暖かくして出かけてね。";
-
-        return "今日も良い一日を！";
+    private WeatherInfo CreateErrorInfo()
+    {
+        return new WeatherInfo
+        {
+            City = WeatherConstants.UnknownStatus,
+            Condition =  WeatherConstants.UnknownStatus,
+            Comment = WeatherConstants.UnknownMessage
+        };
     }
 }

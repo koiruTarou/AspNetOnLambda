@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using AspNetOnLambda.Services;
+using AspNetOnLambda.Models;
 
 namespace AspNetOnLambda.Controllers;
 
@@ -18,8 +19,8 @@ public class WeatherController : ControllerBase
     [HttpGet("{jmaCode}")]
     public async Task<IActionResult> Get(string jmaCode)
     {
-        var (condition, comment) = await _weather.GetTodayWeatherAsync(jmaCode);
-
-        return Ok(new { condition, comment });
+        WeatherInfo info = await _weather.GetTodayWeatherAsync(jmaCode);
+        return Ok(info);
     }
+
 }

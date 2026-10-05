@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\study\\AspNetOnLambda\\AspNetOnLambda.csproj": {}
+    "C:\\study\\AspNetOnLambda\\AspNetOnLambda.csproj": {}
   },
   "projects": {
-    "c:\\study\\AspNetOnLambda\\AspNetOnLambda.csproj": {
+    "C:\\study\\AspNetOnLambda\\AspNetOnLambda.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\study\\AspNetOnLambda\\AspNetOnLambda.csproj",
+        "projectUniqueName": "C:\\study\\AspNetOnLambda\\AspNetOnLambda.csproj",
         "projectName": "AspNetOnLambda",
-        "projectPath": "c:\\study\\AspNetOnLambda\\AspNetOnLambda.csproj",
+        "projectPath": "C:\\study\\AspNetOnLambda\\AspNetOnLambda.csproj",
         "packagesPath": "C:\\Users\\liuyi\\.nuget\\packages\\",
-        "outputPath": "c:\\study\\AspNetOnLambda\\obj\\",
+        "outputPath": "C:\\study\\AspNetOnLambda\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

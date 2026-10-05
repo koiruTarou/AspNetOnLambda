@@ -9,6 +9,12 @@ public class Startup
         Configuration = configuration;
     }
 
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers();
+        services.AddHttpClient<WeatherService>(); //
+    }
+
     public IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -30,7 +36,7 @@ public class Startup
             endpoints.MapControllers();
             endpoints.MapGet("/", async context =>
             {
-                await context.Response.WriteAsync("Welcome to running ASP.NET Core on AWS Lambda_TEST");
+                await context.Response.WriteAsync("Welcome to running ASP.NET Core on AWS Lambda");
             });
         });
     }

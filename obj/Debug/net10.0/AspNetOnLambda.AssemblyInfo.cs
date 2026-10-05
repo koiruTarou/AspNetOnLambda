@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AspNetOnLambda")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8bcff065789cb433f815361a43428feec1ae79b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5dc2386a7ac6a13498506a31234fd9a7ecb0019")]
 [assembly: System.Reflection.AssemblyProductAttribute("AspNetOnLambda")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AspNetOnLambda")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
