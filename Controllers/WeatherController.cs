@@ -15,11 +15,12 @@ public class WeatherController : ControllerBase
         _weather = weather;
     }
 
-    // 例： /weather/230000
-    [HttpGet("{jmaCode}")]
-    public async Task<IActionResult> Get(string jmaCode)
+    // 例： /weather/230000/230010
+     [HttpGet("{prefCode}/{cityCode}")]
+    public async Task<IActionResult> Get(string prefCode,string cityCode)
     {
-        WeatherInfo info = await _weather.GetTodayWeatherAsync(jmaCode);
+        //天気情報取得
+        WeatherInfo info = await _weather.GetTodayWeatherAsync(prefCode,cityCode);
         return Ok(info);
     }
 

@@ -1,4 +1,3 @@
-using System.Net.Http;
 using System.Text.Json;
 using AspNetOnLambda.Common;
 using AspNetOnLambda.Models;
@@ -18,49 +17,70 @@ public class WeatherService
             System.Net.SecurityProtocolType.Tls12;
     }
 
-    public async Task<WeatherInfo> GetTodayWeatherAsync(string jmaCode)
+    public async Task<WeatherInfo> GetTodayWeatherAsync(string? prefCode, string? cityCode)
     {
-        var url = $"{AppConstants.JmaForecastBaseUrl}{jmaCode}.json";
 
-        var json = await _http.GetStringAsync(url);
-        using var doc = JsonDocument.Parse(json);
-
-        // weathers を持つ timeSeries を探す
-        JsonElement? weatherSeries = null;
-
-        foreach (var ts in doc.RootElement[0].GetProperty("timeSeries").EnumerateArray())
+        try
         {
-            if (ts.TryGetProperty("areas", out var areas) &&
-                areas[0].TryGetProperty("weathers", out var _))
+            if (string.IsNullOrEmpty(prefCode) || string.IsNullOrEmpty(cityCode))
             {
-                weatherSeries = ts;
-                break;
+                //コード未入力エラーを返す
+                return CreateWeather(Common.AppConstants.ResultErr, Common.AppConstants.ErrorNoInputCode, prefCode, cityCode, "", "");
+            }
+
+            string url = $"{AppConstants.JmaForecastBaseUrl}{prefCode}.json";
+
+            var json = await _http.GetStringAsync(url);
+            using var doc = JsonDocument.Parse(json);
+
+            string? todayWeather = GetTodayWeather(doc, cityCode);
+
+            if (!string.IsNullOrEmpty(todayWeather))
+            {
+                //取得成功した天気情報をコメント付きで返す。
+                return CreateWeather(Common.AppConstants.ResultOK, "", prefCode, cityCode, todayWeather, GenerateComment(todayWeather));
+            }
+            else
+            {
+                //情報取得失敗エラーを返す
+                return CreateWeather(Common.AppConstants.ResultErr, Common.AppConstants.ErrorWeatherFetch, prefCode, cityCode, "", "");
             }
         }
-
-        if (weatherSeries == null)
+        catch(Exception ex)
         {
-            return CreateErrorInfo(); 
+            return CreateWeather(
+                Common.AppConstants.ResultErr,
+                ex.Message,
+                prefCode,
+                cityCode,
+                "",
+                ""
+            );
         }
-
-        var area = weatherSeries.Value.GetProperty("areas")[0];
-        var city = area.GetProperty("area").GetProperty("name").GetString();
-        var condition = area.GetProperty("weathers")[0].GetString();
-
-        if (city == null || condition == null)
-        {
-            return CreateErrorInfo();
-        }else{
-            return new WeatherInfo
-            {
-                City = city,
-                Condition = condition,
-                Comment = GenerateComment(condition)
-            };
-        }
+        ;
     }
 
-     private string GenerateComment(string condition)
+    public string? GetTodayWeather(JsonDocument doc, string cityCode)
+    {
+        // 今日・明日・明後日の天気は root[0].timeSeries[0]
+        var root0 = doc.RootElement[0];
+        var timeSeries0 = root0.GetProperty("timeSeries")[0];
+        var areas = timeSeries0.GetProperty("areas");
+
+        foreach (var area in areas.EnumerateArray())
+        {
+            var code = area.GetProperty("area").GetProperty("code").GetString();
+            if (code == cityCode)
+            {
+                // 市区町村の今日の天気を取得（weathers[0]）
+                return area.GetProperty("weathers")[0].GetString();
+            }
+        }
+        return null;
+    }
+
+
+    private string GenerateComment(string condition)
     {
         foreach (var kv in WeatherConstants.WeatherMap)
         {
@@ -72,13 +92,16 @@ public class WeatherService
         return WeatherConstants.UnknownMessage;
     }
 
-    private WeatherInfo CreateErrorInfo()
+    private WeatherInfo CreateWeather(string ResultCd, string ResultMsg, string PrefCode, string CityCode, string Condition, string Comment)
     {
         return new WeatherInfo
         {
-            City = WeatherConstants.UnknownStatus,
-            Condition =  WeatherConstants.UnknownStatus,
-            Comment = WeatherConstants.UnknownMessage
+            ResultCd = ResultCd,
+            ResultMsg = ResultMsg,
+            PrefCode = PrefCode,
+            CityCode = CityCode,
+            Condition = Condition,
+            Comment = Comment
         };
     }
 }
