@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "AspNetOnLambda - Kestrel Debug",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build packages",
+            "program": "${workspaceFolder}/bin/Debug/net10.0/AspNetOnLambda.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "AWS_LAMBDA_FUNCTION_NAME": ""   // Lambdaモード無効化
+            },
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}
