@@ -46,8 +46,14 @@ public class WeatherService
                 return CreateWeather(Common.AppConstants.ResultErr, Common.AppConstants.ErrorWeatherFetch, prefCode, cityCode, "", "");
             }
         }
+        catch (HttpRequestException ex)
+        {
+            // 気象庁APIサーバーエラー
+            return CreateWeather(Common.AppConstants.ResultErr, Common.AppConstants.ErrorServerFailed, prefCode, cityCode, "", "");
+        }
         catch(Exception ex)
         {
+            //その他の例外
             return CreateWeather(
                 Common.AppConstants.ResultErr,
                 ex.Message,
@@ -78,7 +84,6 @@ public class WeatherService
         }
         return null;
     }
-
 
     private string GenerateComment(string condition)
     {
