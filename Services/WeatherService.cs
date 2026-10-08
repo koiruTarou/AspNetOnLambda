@@ -25,7 +25,7 @@ public class WeatherService
             if (string.IsNullOrEmpty(prefCode) || string.IsNullOrEmpty(cityCode))
             {
                 //コード未入力エラーを返す
-                return CreateWeather(Common.AppConstants.ResultErr, Common.AppConstants.ErrorNoInputCode, prefCode, cityCode, "", "");
+                return CreateWeather(Common.AppConstants.ResultOK, Common.AppConstants.ErrorNoInputCode, prefCode, cityCode, "", "");
             }
 
             string url = $"{AppConstants.JmaForecastBaseUrl}{prefCode}.json";
@@ -43,7 +43,7 @@ public class WeatherService
             else
             {
                 //情報取得失敗エラーを返す
-                return CreateWeather(Common.AppConstants.ResultErr, Common.AppConstants.ErrorWeatherFetch, prefCode, cityCode, "", "");
+                return CreateWeather(Common.AppConstants.ResultOK, Common.AppConstants.ErrorWeatherFetch, prefCode, cityCode, "", "");
             }
         }
         catch (HttpRequestException ex)

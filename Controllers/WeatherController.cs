@@ -21,7 +21,17 @@ public class WeatherController : ControllerBase
     {
         //天気情報取得
         WeatherInfo info = await _weather.GetTodayWeatherAsync(prefCode,cityCode);
-        return Ok(info);
+    
+        if (info.ResultCd == Common.AppConstants.ResultOK)
+        {
+            return Ok(info); // 200
+        }
+        else if (info.ResultCd == Common.AppConstants.ResultErr)
+        {
+            return BadRequest(info);
+        }else
+        {
+            return StatusCode(500, info); // 500
+        }
     }
-
 }
