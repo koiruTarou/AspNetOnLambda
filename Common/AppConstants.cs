@@ -12,6 +12,6 @@ public static class AppConstants
     public const string ErrorNoInputCode = "気象情報を取得するためのコードが入力されていません";
     public const string ErrorWeatherFetch = "気象庁から天気情報を取得できませんでした。入力したコードが間違っていないか確認してください";
 
-    public const string ErrorServerFailed = "気象庁 API の取得に失敗しました。"
+    public const string ErrorServerFailed = "気象庁 API の取得に失敗しました。";
 
 }
